@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <!-- <link rel="stylesheet" href="../js/bootstrap.js"> -->
+    <link rel="stylesheet" href="../js/bootstrap.bundle.js">
+    <!-- <link rel="stylesheet" href="../js/bootstrap.esm.js"> -->
+
+    <title>Acceuil</title>
+</head>
+<body>
+    <!-- Nav Bar Acceuil -->
+    <div class="container-fluid">
+        <nav class="navbar bg-light">
+            <div class="container-fluid">
+                <div class="left-item">
+                    <a class="navbar-brand" href="/pages/index.html">
+                        <img src="../ressources/acceuil.jpeg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                        Acceuil
+                    </a>
+                    <form class="d-flex nav-left" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">OK</button>
+                    </form>
+                </div>
+                <div class="right-item">
+                    <a class="navbar-brand" href="/pages/connexion.html" >
+                        Connexion
+                    </a>
+                    <a class="navbar-brand" href="/pages/profil.html">
+                        <img src="../ressources/profil.jpeg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    </a>
+                </div>
+            </div>
+          </nav>
+    </div>
+
+    <!-- Carousel de présentation -->
+    <div class="container">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label=""></button>
+            </div>
+            <div class="carousel-inner h-75">
+                <div class="carousel-item active">
+                    <img src="/ressources/surfboards/board1.jpeg" class="d-block w-100" alt="">
+                </div>
+                <div class="carousel-item">
+                    <img src="/ressources/surfboards/board2.jpeg" class="d-block w-100" alt="">
+                </div>
+                <div class="carousel-item">
+                    <img src="/ressources/surfboards/board3.jpeg" class="d-block w-100" alt="">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

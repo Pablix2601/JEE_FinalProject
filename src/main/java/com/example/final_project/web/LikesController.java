@@ -3,7 +3,7 @@ package com.example.final_project.web;
 import com.example.final_project.entities.Likes;
 import com.example.final_project.entities.User;
 import com.example.final_project.repositories.LikesRepository;
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

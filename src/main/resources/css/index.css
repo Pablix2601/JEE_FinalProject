@@ -1,0 +1,11 @@
+.left-item{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+}
+
+.right-item{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+}
