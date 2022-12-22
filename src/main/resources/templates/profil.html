@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/index.css">
@@ -15,8 +16,8 @@
 <body>
     <!-- Nav Bar Acceuil -->
     <div class="container-fluid">
-        <nav class="navbar bg-light">
-            <div class="container-fluid">
+        <nav class="navbar bg-light" >
+            <div class="container-fluid" >
                 <div class="left-item">
                     <a class="navbar-brand" href="/pages/index.html">
                         <img src="../ressources/acceuil.jpeg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
@@ -38,10 +39,70 @@
             </div>
           </nav>
     </div>
+    <br>
 
-    <!-- Profile -->
+    <!-- Profile  card -->
+    <div class="container py-5">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card mb-4" style="background-color:#D3D3D3 ;">
+                <div class="card-body text-center">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                    <h5 class="my-3"> Lucas Bailleul </h5>
+                    <p class="text-muted mb-1">France</p>
+                    <p class="text-muted mb-4">Pau, 64000</p>
+                    <div class="d-flex justify-content-center mb-2">
+                        <button type="button" class="btn btn-outline-primary ms-1">Suivre</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
 
-    <div></div>
+    <!-- Profile card info perso -->
+    
+    <div class="col-lg-6">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">Lucas Bailleul</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">bailleullu@cy-tech.fr</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Phone</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">+33 07 01 02 03 04</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Address</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">France, Pau, 64000</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success btn-rounded btn-block btn-lg">Modifier profil</button>
+    </div>
 
     <!-- catalogue -->
     <table class="table">
@@ -51,6 +112,7 @@
               <th scope="col">Référence</th>
               <th scope="col">Description</th>
               <th scope="col">Image</th>
+              <th scope="col">Favoris <i class='far fa-star'></i></th>
             </tr>
           </thead>
           <tbody>
@@ -64,6 +126,7 @@
         </tbody>
 
     </table>
+    </div>
     </div>
 
 
