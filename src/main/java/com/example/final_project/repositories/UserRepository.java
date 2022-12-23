@@ -7,7 +7,6 @@ import org.w3c.dom.Entity;
 import java.util.Map;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsernameAndPassword (String pseudo, String password);
-    User findByUsername (String pseudo);
     User getUsersByUsername (String username);
+    User getUsersById(Long id);
 }

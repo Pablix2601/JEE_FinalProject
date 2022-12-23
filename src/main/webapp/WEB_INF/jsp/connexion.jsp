@@ -1,69 +1,63 @@
 <%@include file="jslt.jsp"%>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
-    <title>Connexion</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <style>
-        .id{
-            background-color: white;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            padding: 10px;
-            border-radius: 10px;
-        }
-        tr {
-            border-top: none !important;
-        }
-        .button0{
-            text-align: center;
-            padding: 5px;
-        }
+    <meta name="verify-v1" content="7+owJw+vJR47pO6wK1RstVpUqOM8JOHN1pTc3qRnZbw=" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    </style>
+    <link rel="stylesheet" href="/WEB_INF/css/bootstrap.css">
+    <link rel="stylesheet" href="/WEB_INF/css/index.css">
+    <!-- <link rel="stylesheet" href="../js/bootstrap.js"> -->
+    <link rel="stylesheet" href="/WEB_INF/js/bootstrap.bundle.js">
+    <!-- <link rel="stylesheet" href="../js/bootstrap.esm.js"> -->
+
+    <title>Connexion</title>
+
 </head>
 
-<body style="background-color:#FFF5F2">
-
-<nav class="navbar navbar-light" style="background-color: #B03212;">
-    <a class="navbar-brand" href="#"> <h3 style="color:#FFF5F2">Les confinés de canard</h3></a>
-    <ul class="nav justify-content-end">
-        <div id="ins2"  style="display:block">
-            <button type="button" class="btn btn-outline-light" onclick="insToCon()">Se connecter</button>
+<body>
+<!-- Nav Bar Acceuil -->
+<div class="container-fluid">
+    <nav class="navbar bg-light">
+        <div class="container-fluid">
+            <div class="left-item">
+                <a class="navbar-brand btn btn-outline-dark bg-white" href="/">
+                    <img src="/WEB_INF/ressources/acceuil.jpeg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    Acceuil
+                </a>
+            </div>
+            <div class="right-item">
+                <a class="navbar-brand btn btn-outline-success bg-success text-white" href="/connexion" >
+                    Connexion
+                </a>
+                <a class="navbar-brand" href="/profil">
+                    <img src="/WEB_INF/ressources/profil.jpeg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                </a>
+            </div>
         </div>
-        <div  id="con2"  style="display:none">
-            <button type="button" class="btn btn-outline-light" onclick="conToIns()">S'inscrire</button>
-        </div>
-    </ul>
-</nav>
+    </nav>
+</div>
 
+<div class="container h-70 w-50" name="formConnexion" style="margin-top: 100px; background-color: #f0f0f0;">
+        <form action="/connexion" style=" justify-content: center;" method="post">
+            <div class="mb-3 form-label">
+                <label class="form-label" for="exampleCheck1">Nom d'utilisateur</label>
+                <input type="text" class="form-control" id="exampleCheck1" name="username">
+            </div>
+            <div class="mb-3 form-label">
+                <label class="form-label" for="exampleCheck2">Mot de passe</label>
+                <input type="password" class="form-control" id="exampleCheck2" name="password">
+            </div>
 
-<div class="id" >
-    <div id="ins"  style="display:block">
-        <h1 style="text-align: center">Inscription</h1>
-        <form action="/connexion" method="post">
-            <table>
-                <label for="username">Nom Utilisateur :</label><br>
-                <input type="text" name="username" value="" id="username" required/><br>
-
-                <label for="pass">Mot de passe :  </label><br><br>
-                <input type="password" name="password" value="" id="pass" required/><br>
-            </table>
-            <p class="button0">
-                <input class="btn btn-outline-dark" type="submit" value="Se connecter" />
-                <input class="btn btn-outline-dark" type="reset" value="Annuler" />
-            </p>
+            <button type="submit" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center;">OK</button>
         </form>
-    </div>
-    <div>
-        <div class="alert alert-danger" role="alert">
-            <span></span>
-        </div>
-    </div>
-
+    <h6>
+        <a href="/register">Cliquez ici pour créer un compte.</a>
+    </h6>
 </div>
 
 </body>
 </html>
+

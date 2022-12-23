@@ -19,9 +19,4 @@ public class Likes {
     private Long id;
     private Long client;
     private Long surfboard;
-
-    public Likes(Long cl, long sb) {
-        this.client = cl;
-        this.surfboard = sb;
-    }
 }

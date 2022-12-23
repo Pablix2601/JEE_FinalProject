@@ -1,0 +1,35 @@
+.left-item{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+}
+
+.right-item{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+}
+
+.avatar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.avatar-128 {
+    max-height: 128px;
+    width: 128px;
+    height: 100%;
+    font-size: 85px;
+    line-height: 128px;
+}
