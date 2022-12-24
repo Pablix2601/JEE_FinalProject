@@ -132,8 +132,8 @@ public class UserController{
         for (int i = 0; i < listLikedSb.size() ; i++) {
             userList.add(userRepository.getUsersById(listLikedSb.get(i).getUserId()));
             if (id != 0) {
-                if (likesRepository.existsByClientAndSurfboard(user.getId(),listLikedSb.get(i).getId())) {
-                    listLikedsb.add(likesRepository.getByClientAndSurfboard(user.getId(),listLikedSb.get(i).getId()));
+                if (likesRepository.existsByClientAndSurfboard(id,listLikedSb.get(i).getId())) {
+                    listLikedsb.add(likesRepository.getByClientAndSurfboard(id,listLikedSb.get(i).getId()));
                 } else {
                     listLikedsb.add(new Likes(null,null,null));
                 }
