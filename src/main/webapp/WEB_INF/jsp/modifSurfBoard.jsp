@@ -40,7 +40,7 @@
   </nav>
 </div>
 <c:set var="sb" value="${sessionScope.surfBoard}" scope="page" />
-<div class="container h-70 w-50" name="formConnexion" style="margin-top: 100px; background-color: #f0f0f0;">
+<div class="container h-70 w-50" style="margin-top: 100px; background-color: #f0f0f0;">
   <form action="/modifSurfBoard/${sb.id}" style=" justify-content: center;" enctype="multipart/form-data" method="post">
     <div class="mb-3 form-label">
       <label class="form-label" for="exampleCheck1">Nom</label>
@@ -59,6 +59,9 @@
 
     <button type="submit" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center;">OK</button>
   </form>
+  <h6>
+    <a href="/profil">Retour au catalogue (perte des modifications)</a>
+  </h6>
 </div>
 
 </body>

@@ -68,8 +68,8 @@
         <tbody>
             <c:forEach var="sb" items="${sessionScope.surfBoard}" varStatus="count">
                 <tr>
-                    <td class="text-sm-center">
-                        <a href="/profil/${u[count.index].id}">
+                    <td class="text-sm-center" style="padding-top: 4%">
+                        <a href="/profil/${u[count.index].id}" class="align-self-center">
                             <c:if test="${u[count.index].image == null}">
                             <span class="bg-primary text-white rounded-circle text-uppercase btn btn-outline-primary align-middle" style="font-size: 150%">
                                 <c:out value='${u[count.index].imgEncoded}' />
@@ -81,7 +81,7 @@
                             <br><c:out value="${u[count.index].username}"/>
                         </a>
                     </td>
-                    <td><c:out value="${sb.nom}"/></td>
+                    <td class="text-sm-center"><c:out value="${sb.nom}"/></td>
                     <td><img src="data:image/jpg;base64,${sb.imgEncoded}" class="d-block w-100" alt="No image" width="200" height="170"></td>
                     <td><c:out value="${sb.content}"/></td>
                     <c:if test="${sessionScope.user.id == sb.userId}">

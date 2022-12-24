@@ -40,7 +40,7 @@
 </div>
 
 <!-- inscription form -->
-<div class="container h-70 w-50" name="formConnexion" style="margin-top: 100px; background-color: #f0f0f0;">
+<div class="container h-70 w-50" style="margin-top: 100px; background-color: #f0f0f0;">
     <form action="/register" style=" justify-content: center;" method="post">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Adresse Email</label>

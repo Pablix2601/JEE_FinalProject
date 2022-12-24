@@ -57,6 +57,9 @@
 
         <button type="submit" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center;">OK</button>
     </form>
+    <h6>
+        <a href="/profil">Retour au catalogue (perte des modifications)</a>
+    </h6>
 </div>
 
 </body>

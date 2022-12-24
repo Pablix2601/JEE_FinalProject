@@ -40,7 +40,7 @@
     </nav>
 </div>
 
-<div class="container h-70 w-50" name="formConnexion" style="margin-top: 100px; background-color: #f0f0f0;">
+<div class="container h-70 w-50" style="margin-top: 100px; background-color: #f0f0f0;">
         <form action="/connexion" style=" justify-content: center;" method="post">
             <div class="mb-3 form-label">
                 <label class="form-label" for="exampleCheck1">Nom d'utilisateur</label>

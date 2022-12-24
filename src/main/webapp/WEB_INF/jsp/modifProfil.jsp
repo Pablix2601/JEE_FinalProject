@@ -40,7 +40,7 @@
 </div>
 
 <!-- connexion form -->
-<div class="container h-70 w-50" name="formConnexion" style="margin-top: 100px; background-color: #f0f0f0;">
+<div class="container h-70 w-50" style="margin-top: 100px; background-color: #f0f0f0;">
     <form action="/modifProfil/${sessionScope.user.id}" style=" justify-content: center;" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Nouvel Email</label>

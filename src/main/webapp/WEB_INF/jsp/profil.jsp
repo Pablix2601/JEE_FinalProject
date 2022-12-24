@@ -131,10 +131,20 @@
 
         <!-- catalogue -->
         <c:if test="${sessionScope.noYourSurfBoard == false}">
-            <h2 class="title">Vous avez posté aucune planche de surf</h2>
+            <h2 class="title">Vous avez posté aucune planche de surf
+                <c:if test="${sessionScope.notYourProfil == false}">
+                    <a href="/newSurfBoard" class="btn btn-info btn-sm mb-2" style="float: right;">Ajouter une planche</a>
+                </c:if>
+            </h2>
+
         </c:if>
         <c:if test="${sessionScope.noYourSurfBoard == true}">
-            <h2 class="title">Planche de surf posté</h2>
+            <h2 class="title ">Planche de surf posté
+                <c:if test="${sessionScope.notYourProfil == false}">
+                    <a href="/newSurfBoard" class="btn btn-info btn-sm mb-2" style="float: right;">Ajouter une planche</a>
+                </c:if>
+            </h2>
+
             <table class="table table-bordered table-responsive">
                 <thead>
                 <tr>
