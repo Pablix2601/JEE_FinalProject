@@ -29,7 +29,7 @@
                 </a>
             </div>
             <div class="right-item">
-                <a class="navbar-brand btn btn-outline-dark" href="/profil" >
+                <a class="navbar-brand btn btn-outline-primary bg-primary text-white" href="/profil" >
                     Mon Profil
                 </a>
                 <a class="navbar-brand" href="/profil">

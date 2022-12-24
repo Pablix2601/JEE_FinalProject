@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public interface SurfBoardRepository extends JpaRepository<SurfBoards, Long> {
     List<SurfBoards> findAll();
-    SurfBoards getByNom(String nom);
 
     @Query("Select sb from Likes l, SurfBoards sb where l.client = ?1 and l.surfboard = sb.id")
     List<SurfBoards> findLikedSurfBoardByUserId(Long userId);

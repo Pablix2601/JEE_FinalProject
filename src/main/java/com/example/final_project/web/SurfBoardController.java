@@ -53,6 +53,27 @@ public class SurfBoardController {
         }
         return "newSurfBoard";
     }
+    @PostMapping("/modifSurfBoard/{id}")
+    public String postAjouterSurfBoard(@RequestParam Map<String,String> allParams,@RequestParam(name ="img") MultipartFile file, @PathVariable Long id) throws IOException {
+        SurfBoards sb = surfBoardRepository.getById(id);
+        sb.setNom(allParams.get("nom"));
+        sb.setContent(allParams.get("dess"));
+        sb.setImage(ImgService.compressImage(file.getBytes()));
+        surfBoardRepository.save(sb);
+        return "redirect:/";
+    }
+
+    @GetMapping("/modifSurfBoard/{id}")
+    public String getModifSurfBoard(HttpServletRequest request, RedirectAttributes rAttribute, @PathVariable Long id) {
+        SurfBoards sb = surfBoardRepository.getById(id);
+        request.getSession().setAttribute("surfBoard",sb);
+        User user = (User) request.getSession().getAttribute("user");
+        if (request.getSession().getAttribute("user") == null || user.getId() != sb.getUserId()) {
+            rAttribute.addAttribute("modifImpossible", true);
+            return "redirect:/";
+        }
+        return "modifSurfBoard";
+    }
 
     @GetMapping("/deleteSurfBoard/{id}")
     public String DeleteSurfBoard(@PathVariable Long id, HttpServletRequest request, RedirectAttributes rAttribute){

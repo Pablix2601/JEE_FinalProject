@@ -86,7 +86,7 @@
                     <td><c:out value="${sb.content}"/></td>
                     <c:if test="${sessionScope.user.id == sb.userId}">
                         <td>
-                            <a class="btn btn-outline-primary">Modifier</a>
+                            <a href="/modifSurfBoard/${sb.id}" class="btn btn-outline-primary">Modifier</a>
                             <a href="/deleteSurfBoard/${sb.id}" class="btn btn-outline-danger">Supprimer</a>
                         </td>
                     </c:if>

@@ -162,7 +162,7 @@
                         </c:if>
                         <c:if test="${sessionScope.notYourProfil == false}">
                             <td>
-                                <a class="btn btn-outline-primary">Modifier</a>
+                                <a href="/modifSurfBoard/${sb.id}" class="btn btn-outline-primary">Modifier</a>
                                 <a href="/deleteSurfBoard/${sb.id}" class="btn btn-outline-danger">Supprimer</a>
                             </td>
                         </c:if>
