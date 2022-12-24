@@ -60,6 +60,7 @@
 
 <!-- Profile  card -->
 <c:set var="u" value="${sessionScope.profilUser}" scope="page" />
+<c:set var="ul" value="${sessionScope.userList}" scope="page" />
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-4">
@@ -130,6 +131,7 @@
         </div>
 
         <!-- catalogue -->
+        <c:set var="lYSb" value="${sessionScope.likedYourSbList}" scope="page" />
         <c:if test="${sessionScope.noYourSurfBoard == false}">
             <h2 class="title">Vous avez posté aucune planche de surf
                 <c:if test="${sessionScope.notYourProfil == false}">
@@ -168,12 +170,26 @@
                         <td><img src="data:image/jpg;base64,${sb.imgEncoded}" class="d-block w-100" alt="No image" width="50" height="42"></td>
                         <td><c:out value="${sb.content}"/></td>
                         <c:if test="${sessionScope.notYourProfil == true}">
-                            <td> <button class="btn btn-outline-success" type="button" style="display: flex;">Like</button> </td>
+                            <td>
+                                <c:if test="${sessionScope.user == null}">
+                                    <a href="/connexion" class="btn btn-outline-success">Like</a>
+                                </c:if>
+                                <c:if test="${sessionScope.user != null}">
+                                    <c:if test="${sessionScope.user != null}">
+                                        <c:if test="${lYSb[count.index].client == null}">
+                                            <a href="/profil/${u.id}/like/${sb.id}" class="btn btn-outline-success">Like</a>
+                                        </c:if>
+                                        <c:if test="${lYSb[count.index].client != null}">
+                                            <a href="/profil/${u.id}/dislike/${lYSb[count.index].id}" class="btn btn-outline-warning">Dislike</a>
+                                        </c:if>
+                                    </c:if>
+                                </c:if>
+                            </td>
                         </c:if>
                         <c:if test="${sessionScope.notYourProfil == false}">
                             <td>
-                                <a href="/modifSurfBoard/${sb.id}" class="btn btn-outline-primary">Modifier</a>
-                                <a href="/deleteSurfBoard/${sb.id}" class="btn btn-outline-danger">Supprimer</a>
+                                <a href="/profil/${sessionScope.user.id}/modifSurfBoard/${sb.id}" class="btn btn-outline-primary">Modifier</a>
+                                <a href="/profil/${sessionScope.user.id}/deleteSurfBoard/${sb.id}" class="btn btn-outline-danger">Supprimer</a>
                             </td>
                         </c:if>
 
@@ -183,30 +199,56 @@
 
             </table>
         </c:if>
-
-        <c:if test="${sessionScope.noLikedSurfBoard == true}">
+        <c:set var="lLSb" value="${sessionScope.listLikedSbList}" scope="page" />
+        <c:if test="${sessionScope.noLikedSurfBoard == false}">
             <h2 class="title">Vous avez liké aucune planche de surf</h2>
         </c:if>
-        <c:if test="${sessionScope.LikedSurfBoard == false}">
+        <c:if test="${sessionScope.noLikedSurfBoard == true}">
             <h2 class="title">Vos planche de surf liké</h2>
             <table class="table table-bordered table-responsive">
                 <thead>
                 <tr>
-                    <th scope="col">Produit</th>
+                    <th scope="col">Utilisateur</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Image</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Favoris <i class='far fa-star'></i></th>
+                    <th scope="col">Action <i class='far fa-star'></i></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="sb" items="${sessionScope.likedSurfBoard}" varStatus="count">
+                <c:forEach var="lsb" items="${sessionScope.likedSurfBoard}" varStatus="count">
                     <tr>
-                        <th scope="row"><c:out value="${count.count}"/></th>
-                        <td><c:out value="${sb.nom}"/></td>
-                        <td><img src="data:image/jpg;base64,${sb.imgEncoded}" class="d-block w-100" alt="No image" width="50" height="42"></td>
-                        <td><c:out value="${sb.content}"/></td>
-                        <td> <button class="btn btn-outline-success" type="button" style="display: flex;">Like</button> </td>
+                        <td class="text-sm-center" style="padding-top: 1%">
+                            <a href="/profil/${ul[count.index].id}" class="align-self-center">
+                                <c:if test="${ul[count.index].image == null}">
+                            <span class="bg-primary text-white rounded-circle text-uppercase btn btn-outline-primary align-middle" style="font-size: 150%">
+                                <c:out value='${ul[count.index].imgEncoded}' />
+                            </span>
+                                </c:if>
+                                <c:if test="${ul[count.index].image != null}">
+                                    <img src="data:image/jpg;base64,${ul[count.index].imgEncoded}" alt="avatar" class="rounded-circle img-fluid align-middle" style="width: 60px;">
+                                </c:if>
+                                <br><c:out value="${ul[count.index].username}"/>
+                            </a>
+                        </td>
+                        <td><c:out value="${lsb.nom}"/></td>
+                        <td><img src="data:image/jpg;base64,${lsb.imgEncoded}" class="d-block w-100" alt="No image" width="50" height="85"></td>
+                        <td><c:out value="${lsb.content}"/></td>
+                        <td>
+                            <c:if test="${sessionScope.user == null}">
+                                <a href="/connexion" class="btn btn-outline-success">Like</a>
+                            </c:if>
+                            <c:if test="${sessionScope.user != null}">
+                                <c:if test="${sessionScope.user != null}">
+                                    <c:if test="${lLSb[count.index].client == null}">
+                                        <a href="/profil/${u.id}/like/${lsb.id}" class="btn btn-outline-success">Like</a>
+                                    </c:if>
+                                    <c:if test="${lLSb[count.index].client != null}">
+                                        <a href="/profil/${u.id}/dislike/${lLSb[count.index].id}" class="btn btn-outline-warning">Dislike</a>
+                                    </c:if>
+                                </c:if>
+                            </c:if>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>

@@ -1,5 +1,6 @@
 package com.example.final_project.web;
 
+import com.example.final_project.entities.Likes;
 import com.example.final_project.entities.SurfBoards;
 import com.example.final_project.entities.User;
 import com.example.final_project.repositories.LikesRepository;
@@ -49,7 +50,7 @@ public class SurfBoardController {
     public String getAjouterSurfBoard(HttpServletRequest request, RedirectAttributes rAttribute) {
         if (request.getSession().getAttribute("user") == null) {
             rAttribute.addAttribute("Connected", false);
-            return "redirect:/index";
+            return "redirect:/index/0";
         }
         return "newSurfBoard";
     }
@@ -63,29 +64,47 @@ public class SurfBoardController {
         return "redirect:/";
     }
 
-    @GetMapping("/modifSurfBoard/{id}")
-    public String getModifSurfBoard(HttpServletRequest request, RedirectAttributes rAttribute, @PathVariable Long id) {
+    @GetMapping("/profil/{userId}/modifSurfBoard/{sbId}")
+    public String getModifSurfBoard(HttpServletRequest request, RedirectAttributes rAttribute, @PathVariable(value = "sbId") Long id) {
         SurfBoards sb = surfBoardRepository.getById(id);
         request.getSession().setAttribute("surfBoard",sb);
         User user = (User) request.getSession().getAttribute("user");
         if (request.getSession().getAttribute("user") == null || user.getId() != sb.getUserId()) {
             rAttribute.addAttribute("modifImpossible", true);
-            return "redirect:/";
+            if (request.getSession().getAttribute("user") == null ) {
+                rAttribute.addAttribute("connected", false);
+                return "redirect:/index/0";
+            } else {
+                return "redirect:/index/"+user.getId();
+            }
         }
         return "modifSurfBoard";
     }
 
-    @GetMapping("/deleteSurfBoard/{id}")
-    public String DeleteSurfBoard(@PathVariable Long id, HttpServletRequest request, RedirectAttributes rAttribute){
+    @GetMapping("/profil/{userId}/deleteSurfBoard/{sbId}")
+    public String DeleteInProfilSurfBoard(@PathVariable(value = "userId") Long userId,@PathVariable(value = "sbId") Long sbId, HttpServletRequest request, RedirectAttributes rAttribute){
         User user = (User) request.getSession().getAttribute("user");
-        SurfBoards sb = surfBoardRepository.getById(id);
-        if(user.getId() != sb.getUserId()) {
+        SurfBoards sb = surfBoardRepository.getById(sbId);
+        if(!user.getId().equals(sb.getUserId())) {
             rAttribute.addAttribute("ImpossibleSupp", true);
-            return "redirect:/";
+            return "redirect:/profil/"+user.getId();
         }
-        likesRepository.deleteAllBySurfboard(id);
-        surfBoardRepository.deleteById(id);
-        return "redirect:/";
+        likesRepository.deleteAllBySurfboard(sbId);
+        surfBoardRepository.deleteById(sbId);
+        return "redirect:/profil/"+user.getId();
+    }
+
+    @GetMapping("/index/{userId}/deleteSurfBoard/{sbId}")
+    public String DeleteInIndexSurfBoard(@PathVariable(value = "userId") Long userId,@PathVariable(value = "sbId") Long sbId, HttpServletRequest request, RedirectAttributes rAttribute){
+        User user = (User) request.getSession().getAttribute("user");
+        SurfBoards sb = surfBoardRepository.getById(sbId);
+        if(!user.getId().equals(sb.getUserId())) {
+            rAttribute.addAttribute("ImpossibleSupp", true);
+            return "redirect:/index/"+user.getId();
+        }
+        likesRepository.deleteAllBySurfboard(sbId);
+        surfBoardRepository.deleteById(sbId);
+        return "redirect:/index/"+user.getId();
     }
 
     @GetMapping ("/")
@@ -103,11 +122,23 @@ public class SurfBoardController {
     @GetMapping(value = "/index/{id}")
     public String Home (HttpServletRequest request, RedirectAttributes rAttribute, @PathVariable Long id) throws UnsupportedEncodingException {
         HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
         List<SurfBoards> listSb = ImgService.stringImgEncoded(surfBoardRepository.findAll());
+        List<Likes> listLikes = new ArrayList<Likes>();
         List<User> userList = new ArrayList<User>();
         for (int i = 0; i < listSb.size() ; i++) {
             userList.add(userRepository.getUsersById(listSb.get(i).getUserId()));
+            if (id != 0) {
+                if (likesRepository.existsByClientAndSurfboard(user.getId(),listSb.get(i).getId())) {
+                    listLikes.add(likesRepository.getByClientAndSurfboard(user.getId(),listSb.get(i).getId()));
+                } else {
+                    listLikes.add(new Likes(null,null,null));
+                }
+            } else {
+                listLikes.add(new Likes(null,null,null));
+            }
         }
+        session.setAttribute("likedList",listLikes);
         session.setAttribute("userList", ImgService.stringAvatarEncoded(userList));
         session.setAttribute("surfBoard",  listSb);
         return "index";

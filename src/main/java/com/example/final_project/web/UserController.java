@@ -1,7 +1,9 @@
 package com.example.final_project.web;
 
+import com.example.final_project.entities.Likes;
 import com.example.final_project.entities.SurfBoards;
 import com.example.final_project.entities.User;
+import com.example.final_project.repositories.LikesRepository;
 import com.example.final_project.repositories.SurfBoardRepository;
 import com.example.final_project.repositories.UserRepository;
 import com.example.final_project.service.ImgService;
@@ -30,13 +32,15 @@ import javax.xml.bind.DatatypeConverter;
 public class UserController{
     private final SurfBoardRepository surfBoardRepository;
     private final UserRepository userRepository;
+    private final LikesRepository likesRepository;
     private final UserService userService;
     private final ImgService imgService;
 
     @GetMapping ("/register")
     public String getRegister (HttpServletRequest request) {
         if (request.getSession().getAttribute("user")!=null) {
-            return "redirect:/";
+            User user = (User) request.getSession().getAttribute("user");
+            return "redirect:/index/"+user.getId();
         }
         return "register";
     }
@@ -61,7 +65,8 @@ public class UserController{
     @GetMapping("/connexion")
     public String getConnexion (HttpServletRequest request) {
         if (request.getSession().getAttribute("user")!=null) {
-            return "redirect:/";
+            User user = (User) request.getSession().getAttribute("user");
+            return "redirect:/index/"+user.getId();
         }
         return "connexion";
     }
@@ -98,7 +103,21 @@ public class UserController{
     @GetMapping(value = "/profil/{id}")
     public String GetProfilById (HttpServletRequest request, @PathVariable Long id, RedirectAttributes rAttribute) {
         HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        List<Likes> listlikedYoursb = new ArrayList<Likes>();
         List<SurfBoards> listYourSb = ImgService.stringImgEncoded(surfBoardRepository.findAllByUserId(id));
+        for (int i = 0; i < listYourSb.size() ; i++) {
+            if (id != 0) {
+                if (likesRepository.existsByClientAndSurfboard(user.getId(),listYourSb.get(i).getId())) {
+                    listlikedYoursb.add(likesRepository.getByClientAndSurfboard(user.getId(),listYourSb.get(i).getId()));
+                } else {
+                    listlikedYoursb.add(new Likes(null,null,null));
+                }
+            } else {
+                listlikedYoursb.add(new Likes(null,null,null));
+            }
+        }
+        session.setAttribute("likedYourSbList",  listlikedYoursb);
         if (listYourSb == null) {
             session.setAttribute("noYourSurfBoard",  false);
         } else {
@@ -106,7 +125,23 @@ public class UserController{
             session.setAttribute("yourSurfBoard", listYourSb);
         }
 
-        List<SurfBoards> listLikedSb = ImgService.stringImgEncoded(surfBoardRepository.findLikedSurfBoardByUserId(id));
+        List<SurfBoards> listLikedSb = ImgService.stringImgEncoded(surfBoardRepository.findAllLikedSurfBoardByUserId(id));
+        List<Likes> listLikedsb = new ArrayList<Likes>();
+        List<User> userList = new ArrayList<User>();
+        for (int i = 0; i < listLikedSb.size() ; i++) {
+            userList.add(userRepository.getUsersById(listLikedSb.get(i).getUserId()));
+            if (id != 0) {
+                if (likesRepository.existsByClientAndSurfboard(user.getId(),listLikedSb.get(i).getId())) {
+                    listLikedsb.add(likesRepository.getByClientAndSurfboard(user.getId(),listLikedSb.get(i).getId()));
+                } else {
+                    listLikedsb.add(new Likes(null,null,null));
+                }
+            } else {
+                listLikedsb.add(new Likes(null,null,null));
+            }
+        }
+        session.setAttribute("userList", ImgService.stringAvatarEncoded(userList));
+        session.setAttribute("listLikedSbList",  listLikedsb);
         if ( listLikedSb == null) {
             session.setAttribute("noLikedSurfBoard",  false);
         } else {
@@ -114,7 +149,7 @@ public class UserController{
             session.setAttribute("likedSurfBoard",  listLikedSb);
         }
         User profilUser = userRepository.getUsersById(id);
-        User user = (User) session.getAttribute("user");
+
         if( user == null || user.getId() != profilUser.getId()) {
             session.setAttribute("notYourProfil", true);
             if (profilUser.getImage() == null) {
@@ -146,7 +181,7 @@ public class UserController{
         User user = (User) request.getSession().getAttribute("user");
         if(user.getId() != id) {
             rAttribute.addAttribute("ImpossibleModif", true);
-            return "redirect:/";
+            return "redirect:/index/"+user.getId();
         }
         return "modifProfil";
     }

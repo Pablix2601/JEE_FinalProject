@@ -52,6 +52,7 @@
 
 
 <c:set var="u" value="${sessionScope.userList}" scope="page" />
+<c:set var="l" value="${sessionScope.likedList}" scope="page" />
 <!-- Carousel de présentation -->
 <div class="container">
     <!-- catalogue -->
@@ -86,12 +87,24 @@
                     <td><c:out value="${sb.content}"/></td>
                     <c:if test="${sessionScope.user.id == sb.userId}">
                         <td>
-                            <a href="/modifSurfBoard/${sb.id}" class="btn btn-outline-primary">Modifier</a>
-                            <a href="/deleteSurfBoard/${sb.id}" class="btn btn-outline-danger">Supprimer</a>
+                            <a href="/profil/${sessionScope.user.id}/modifSurfBoard/${sb.id}" class="btn btn-outline-primary">Modifier</a>
+                            <a href="/index/${sessionScope.user.id}/deleteSurfBoard/${sb.id}" class="btn btn-outline-danger">Supprimer</a>
                         </td>
                     </c:if>
                     <c:if test="${sessionScope.user.id != sb.userId}">
-                        <td> <button class="btn btn-outline-success" type="button" style="display: flex;">Like</button> </td>
+                        <td>
+                            <c:if test="${sessionScope.user == null}">
+                                <a href="/connexion" class="btn btn-outline-success">Like</a>
+                            </c:if>
+                            <c:if test="${sessionScope.user != null}">
+                                <c:if test="${l[count.index].client == null}">
+                                    <a href="/index/${sessionScope.user.id}/like/${sb.id}" class="btn btn-outline-success">Like</a>
+                                </c:if>
+                                <c:if test="${l[count.index].client != null}">
+                                    <a href="/index/${sessionScope.user.id}/dislike/${l[count.index].id}" class="btn btn-outline-warning">Dislike</a>
+                                </c:if>
+                            </c:if>
+                        </td>
                     </c:if>
                 </tr>
             </c:forEach>
