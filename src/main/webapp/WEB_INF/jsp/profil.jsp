@@ -61,6 +61,7 @@
 <!-- Profile  card -->
 <c:set var="u" value="${sessionScope.profilUser}" scope="page" />
 <c:set var="ul" value="${sessionScope.userList}" scope="page" />
+<c:set var="f" value="${sessionScope.followedList}" scope="page"/>
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-4">
@@ -77,12 +78,28 @@
                     <h5 class="my-3"> <c:out value='${u.nom} ${u.prenom}' /> </h5>
                     <p class="text-muted mb-1"><c:out value='${u.username}' /></p>
                     <div class="d-flex justify-content-center mb-2">
-                        <c:if test="${sessionScope.notYourProfil == true}">
-                            <button type="button" class="btn btn-outline-primary ms-1">Suivre</button>
+                        <c:if test="${sessionScope.user == null}">
+                            <c:if test="${sessionScope.notYourProfil == true}">
+                                <a href="/connexion" class="btn btn-outline-primary ms-1">Suivre</a>
+                            </c:if>
+                            <c:if test="${sessionScope.notYourProfil == false}">
+                                <a href="" class="btn btn-outline-primary ms-1 visually-hidden">Suivre</a>
+                            </c:if>
                         </c:if>
-                        <c:if test="${sessionScope.notYourProfil == false}">
-                            <button type="button" class="btn btn-outline-primary ms-1 visually-hidden">Suivre</button>
+                        <c:if test="${sessionScope.user != null}">
+                            <c:if test="${sessionScope.notYourProfil == true}">
+                                <c:if test="${sessionScope.followed == false}">
+                                    <a href="/profil/${u.id}/follow/${sessionScope.user.id}" class="btn btn-outline-primary ms-1">Suivre</a>
+                                </c:if>
+                                <c:if test="${sessionScope.followed == true}">
+                                    <a href="/profil/${u.id}/unfollow/${sessionScope.user.id}" class="btn btn-outline-primary ms-1">Unfollow</a>
+                                </c:if>
+                            </c:if>
+                            <c:if test="${sessionScope.notYourProfil == false}">
+                                <a href="" class="btn btn-outline-primary ms-1 visually-hidden">Suivre</a>
+                            </c:if>
                         </c:if>
+
                     </div>
                 </div>
             </div>

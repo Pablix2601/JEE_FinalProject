@@ -3,6 +3,7 @@ package com.example.final_project.web;
 import com.example.final_project.entities.Likes;
 import com.example.final_project.entities.SurfBoards;
 import com.example.final_project.entities.User;
+import com.example.final_project.repositories.FollowsRepository;
 import com.example.final_project.repositories.LikesRepository;
 import com.example.final_project.repositories.SurfBoardRepository;
 import com.example.final_project.repositories.UserRepository;
@@ -33,7 +34,7 @@ public class UserController{
     private final SurfBoardRepository surfBoardRepository;
     private final UserRepository userRepository;
     private final LikesRepository likesRepository;
-    private final UserService userService;
+    private final FollowsRepository followsRepository;
     private final ImgService imgService;
 
     @GetMapping ("/register")
@@ -107,7 +108,7 @@ public class UserController{
         List<Likes> listlikedYoursb = new ArrayList<Likes>();
         List<SurfBoards> listYourSb = ImgService.stringImgEncoded(surfBoardRepository.findAllByUserId(id));
         for (int i = 0; i < listYourSb.size() ; i++) {
-            if (id != 0) {
+            if (session.getAttribute("user") != null) {
                 if (likesRepository.existsByClientAndSurfboard(user.getId(),listYourSb.get(i).getId())) {
                     listlikedYoursb.add(likesRepository.getByClientAndSurfboard(user.getId(),listYourSb.get(i).getId()));
                 } else {
@@ -171,8 +172,10 @@ public class UserController{
             }
         }
         session.setAttribute("profilUser", profilUser);
-
-
+        if (session.getAttribute("user") != null) {
+            session.setAttribute("followed", followsRepository.existsByIdUserAndIdUserFollowed(user.getId(), id));
+            session.setAttribute("followedList", followsRepository.findAllFollowedUserByUserId(id));
+        }
         return "profil";
     }
 
